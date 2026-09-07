@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Furnace Input Form</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h2>Furnace Data Entry</h2>
+  <form id="furnaceForm">
+    WO_No: <input type="text" id="WO_No"><br>
+    Sort_WO_No: <input type="text" id="Sort_WO_No"><br>
+    Furnace_Date: <input type="date" id="Furnace_Date"><br>
+    Furnace_Shift: <input type="text" id="Furnace_Shift"><br>
+    Charge_Type: <input type="text" id="Charge_Type"><br>
+    Furnace_no: <input type="number" id="Furnace_no"><br>
+    Furnace_Base_No: <input type="number" id="Furnace_Base_No"><br>
+    Category_Type: <input type="text" id="Category_Type"><br>
+    Quantity: <input type="text" id="Quantity"><br>
+    Updated_By: <input type="text" id="Updated_By"><br>
+    Status: <input type="text" id="Status"><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const { createClient } = supabase;
+    const supabaseUrl = "YOUR_PROJECT_URL";
+    const supabaseKey = "YOUR_ANON_KEY";
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    document.getElementById("furnaceForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const { error } = await supabaseClient
+        .from("furnace_table") // replace with your table name
+        .insert({
+          WO_No: document.getElementById("WO_No").value,
+          Sort_WO_No: document.getElementById("Sort_WO_No").value,
+          Furnace_Date: document.getElementById("Furnace_Date").value,
+          Furnace_Shift: document.getElementById("Furnace_Shift").value,
+          Charge_Type: document.getElementById("Charge_Type").value,
+          Furnace_no: document.getElementById("Furnace_no").value,
+          Furnace_Base_No: document.getElementById("Furnace_Base_No").value,
+          Category_Type: document.getElementById("Category_Type").value,
+          Quantity: document.getElementById("Quantity").value,
+          Updated_By: document.getElementById("Updated_By").value,
+          Status: document.getElementById("Status").value
+        });
+      if (error) {
+        alert("Error: " + error.message);
+      } else {
+        alert("Data saved successfully!");
+      }
+    });
+  </script>
+</body>
+</html>
