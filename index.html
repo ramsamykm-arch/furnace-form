@@ -1,36 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Furnace Input Form</title>
+  <meta charset="UTF-8">
+  <title>Furnace Data Entry</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #f0f8ff, #e6f7ff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      background-color: #007acc;
+      color: white;
+      padding: 15px;
+      margin: 0;
+    }
+    form {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #005f99;
+    }
+  </style>
 </head>
 <body>
-  <h2>Furnace Data Entry</h2>
+  <h2>Furnace Data Entry Form</h2>
   <form id="furnaceForm">
-    WO_No: <input type="text" id="WO_No"><br>
-    Sort_WO_No: <input type="text" id="Sort_WO_No"><br>
-    Furnace_Date: <input type="date" id="Furnace_Date"><br>
-    Furnace_Shift: <input type="text" id="Furnace_Shift"><br>
-    Charge_Type: <input type="text" id="Charge_Type"><br>
-    Furnace_no: <input type="number" id="Furnace_no"><br>
-    Furnace_Base_No: <input type="number" id="Furnace_Base_No"><br>
-    Category_Type: <input type="text" id="Category_Type"><br>
-    Quantity: <input type="text" id="Quantity"><br>
-    Updated_By: <input type="text" id="Updated_By"><br>
-    Status: <input type="text" id="Status"><br>
+    <label>WO_No: <input type="text" id="WO_No"></label>
+    <label>Sort_WO_No: <input type="text" id="Sort_WO_No"></label>
+    <label>Furnace_Date: <input type="date" id="Furnace_Date"></label>
+    <label>Furnace_Shift: <input type="text" id="Furnace_Shift"></label>
+    <label>Charge_Type: <input type="text" id="Charge_Type"></label>
+    <label>Furnace_no: <input type="number" id="Furnace_no"></label>
+    <label>Furnace_Base_No: <input type="number" id="Furnace_Base_No"></label>
+    <label>Category_Type: <input type="text" id="Category_Type"></label>
+    <label>Quantity: <input type="text" id="Quantity"></label>
+    <label>Updated_By: <input type="text" id="Updated_By"></label>
+    <label>Status: <input type="text" id="Status"></label>
     <button type="submit">Submit</button>
   </form>
 
   <script>
     const { createClient } = supabase;
-    const supabaseUrl = "YOUR_PROJECT_URL";
-    const supabaseKey = "YOUR_ANON_KEY";
+    const supabaseUrl =https://jpzkbhumwvtbioektpsr.supabase.co;   // replace with your Supabase project URL
+    const supabaseKey = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwemtiaHVtd3Z0YmlvZWt0cHNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg3ODUyNTYsImV4cCI6MjEwNDM2MTI1Nn0.BuH_dUovcE4OspHU6qTzPz6csSr0bNeNtApt9N8uy2A;      // replace with your Supabase anon key
     const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
     document.getElementById("furnaceForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+
       const { error } = await supabaseClient
-        .from("furnace_table") // replace with your table name
+        .from("furnace_table")   // replace with your table name
         .insert({
           WO_No: document.getElementById("WO_No").value,
           Sort_WO_No: document.getElementById("Sort_WO_No").value,
@@ -44,10 +95,12 @@
           Updated_By: document.getElementById("Updated_By").value,
           Status: document.getElementById("Status").value
         });
+
       if (error) {
         alert("Error: " + error.message);
       } else {
-        alert("Data saved successfully!");
+        alert("✅ Data saved successfully!");
+        document.getElementById("furnaceForm").reset();
       }
     });
   </script>
